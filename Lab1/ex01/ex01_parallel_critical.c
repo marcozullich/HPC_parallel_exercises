@@ -43,8 +43,8 @@ int main( int argc, char * argv[] ) {
             //add area of rectangle
             partial_pi += rec_area;
         }
-        //atomic accumulation - sum the partial accumulation computed in each thread
-        #pragma omp atomic
+        //accumulation with critical
+        #pragma omp critical
             pi_approx += partial_pi;
         
     }  

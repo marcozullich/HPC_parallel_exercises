@@ -18,7 +18,7 @@ int main( int argc, char * argv[] ) {
 
     double tstart = omp_get_wtime();
     
-    #pragma omp parallel
+    #pragma omp parallel reduction(+:pi_approx)
     {   
         //print of no. threads is executed single thread w/o barrier
         #pragma omp single nowait
@@ -43,9 +43,8 @@ int main( int argc, char * argv[] ) {
             //add area of rectangle
             partial_pi += rec_area;
         }
-        //atomic accumulation - sum the partial accumulation computed in each thread
-        #pragma omp atomic
-            pi_approx += partial_pi;
+        //accumulation of pi
+        pi_approx += partial_pi;
         
     }  
     
